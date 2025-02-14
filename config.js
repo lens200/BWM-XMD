@@ -8,7 +8,39 @@ const DATABASE_URL = process.env.DATABASE_URL === undefined
     ? databasePath
     : process.env.DATABASE_URL;
 module.exports = { session: process.env.SESSION_ID ||| 'BWM-XMD;;;H4sIAAAAAAAAA5VU25KqOBT9l7xiH7mIilVdNaCgXBUBb1NTUxGCRpEgCSp2+e9TtN11+mHOmR6eUglZe2WttfcbyAmmyEY1GLyBosQXyFCzZHWBwABoVZqiErRAAhkEA9DX/XKTOSNX9cacO82VseDajrHRSyHxCTcdIa6jrazzzFi/gkcLFNU2w/FvAC1papCDFsvzKzn2c2EzdCgXzs/nEe9Tf93xOOQrs1moXd1X8GgQIS5xvtOLPTqhEmY2qmcQl9+jf51VvsGClORy2k+MwpuN2Ma4sFxyzrp8chcn3jW0FNcL8j36peN174fOaaJbgdVfzQOzrROrdxzSyrlwdRrvvKW0pld7SJ70Kd7lKDETlDPM6m/rbs+mdTotzMTSh7rm4EUpWOO6TPSeG0PxgLOh4OGj7cTj3feIr7fLe//Mpb2dFty8o3QjbHfLpG4cEh/fOHnvUIt4NLGD6CvxWfmZleP/0X1sZGzYEzmn7XfFfeAxnw8DQkohDW/Yjxy4rJN9e7Mqxu736K+qsh4f2n0lmk3Ujr9a7+P8uLVx5Chhptwjx9RCLixw2+d/0oesKn/Hck4rY3vf+vYSy7fTxJ8v+ncX73Yi7xYORfeMN4fzfZl1zpqzn128Dr0aBb9g0a5z07pqxxRcTO9QN0vxdOanCUl6Y+36+v6iI6rNBAyERwuUaIcpKyHDJG/2RFFoAZhcAhSXiL3LCwIuFvULHgXdRTS6Wta17M11KovsbCnFphNN957fOyTjeT96BS1QlCRGlKJkgikjZe0iSuEOUTD4868WyNGNPY1ryklCC6S4pCzKqyIjMPl09fMQxjGpchbUeTxsFqgEA/7nNmIM5zva6FjlsIz3+IKGe8goGKQwo+jRAgm64Bg1eMA+nvSFvqL+rvZyEZem/zem14bynuTPX+J+P423SvyCYgm9dNJ+/NJP5M5Lomx7HQHCdAs7oAXwR880d35poaDM6PQQbWw/HO2dhBjn7KKf1Ikbm+82PLVHJUrAgJUVaoEtjI9VEZIjyn+DW7SZI1y23fV9RMVwHcva6GK5Cpfhr7hPT8Hg7eecGpKkwVO6ou0rxgi0wOk9grh5ucwrktCT+pIsDGTxD/rj2ugIi+JHjlgD+6F5cyFBDOKMggEYepNpN1P9XbU0L/56rQaqaqtqk4NPjz7D/gzTxE389W1xq2p5PuvN5lM52yJsupmZyw4f7WMx6/Li9KCF5r+BNHPzzuyJGiRqJ1ycDyReBisO35fjnjqRuIVk2fU9qEKNOgdypHVAJyt6y2Abcxs789KaiOcuXIqjfs0bs3QayVPOFDT/tan2zMrXYszsWKLbzofDabmfeLIeLM1qyJlaIVK3upt7MjaiOMlR95C4W52081NsqTJ/zcLLQmdpFkjx2omNYTX3ZxtbDYuuoqrPNnwfA9nH+MXvDfL2kawUo/dplsPGof/w5mvG+UfrC8THePxFjrT5fRKN3UW8pVUUcnc+rDZLieCRFVhcoBjmyisQ8w7kGtXg8firBYoMspSUJzAAME9KghPQAhmkTP3ZpiE+IcrgqQCDhnK3L/Gi1AKnWi2KgEH22d1AbT6bBODxD7yIfvP5BwAA',
-    PREFIXE: process.env.PREFIX || ".",
+    PREFIXE: process.env.PREFIX |name: Node.js CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Start application
+      run: npm start| ".",
     OWNER_NAME: process.env.OWNER_NAME || "kelly-tec",
     NUMERO_OWNER : process.env.NUMERO_OWNER || "31738351",              
     AUTO_READ_STATUS: process.env.AUTO_READ_STATUS || "yes",
